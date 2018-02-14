@@ -8,29 +8,35 @@
 #include "list.h"
 #include "get_next_line.h"
 
+void printbincharpad(char c)
+{
+	int	i;
+	
+	for (i = 7; i >= 0; --i) {
+		putchar( (c & (1 << i)) ? '1' : '0' );
+	}
+	putchar('\n');
+}
+
 int	main(int ac, char **av)
 {
-	char	**user1_map;
-	char	**user2_map;
-	char	**user_map_empty;
-	int	i;
+	char	**user_map;
+	char    **user_map_empty;
 
-	
-	if (ac == 2) {
-		user1_map = open_function(av[1]);
-		for (i = 0; user1_map[i] != NULL; i++)
-			printf("%s",user1_map[i]);
-		user_map_empty = feed_empty(user1_map);
-		for (i = 0; user_map_empty[i] != NULL; i++)
-			printf("map:%s",user_map_empty[i]);
-	}
-	if (ac == 3) {
-		user2_map = open_function(av[2]);
-	}
+	if (ac != 2 && ac != 3)
+		exit(84);
+	printbincharpad(10);
 	my_putstr("my_pid ");
 	my_put_nbr((int)getpid());
 	my_putstr("\n");
-	who_sig_me();
+	if (ac == 2) {
+		my_putstr("waiting for enemy conection...");
+		user_map = open_function(av[1]);
+	}
+	if (ac == 3)
+		user_map = open_function(av[2]);
+	user_map_empty = feed_empty(user_map);
+	who_sig_me(user_map, user_map_empty, ac, av[1]);
 	return (0);
 }
 	

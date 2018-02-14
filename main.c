@@ -9,18 +9,18 @@
 
 int	proces_info(void)
 {
-	 if (fork() == 0) {
-		 my_putstr("PID: ");
-		 my_put_nbr((int)getpid());
-		 my_putstr("\nPPID: ");
-		 my_put_nbr((int)getppid());
-		 my_putstr("\nPGID: ");
-		 my_put_nbr((int)getpgid(getpid()));
+	if (fork() == 0) {
+		my_putstr("PID: ");
+		my_put_nbr((int)getpid());
+		my_putstr("\nPPID: ");
+		my_put_nbr((int)getppid());
+		my_putstr("\nPGID: ");
+		my_put_nbr((int)getpgid(getpid()));
 		 my_putstr("\n");
 		 // printf("The child's PID is %d.  The process group ID is %dn",
 		 //	(int) getpid(), (int) getpgrp());
-	 }
-	 return (0);
+	}
+	return (0);
 }
 
 int	kill_it(int num)
@@ -30,90 +30,70 @@ int	kill_it(int num)
 	return (0);
 }
 
+int	counter(int	i)
+{
+	static int	num = 0;
+
+	if (i == 1)
+		num = 1;
+	printf("numatlast:%d\n", num);
+	return (num);
+}
+	
 void	handle_signal(int signal)
 {
-	char	*a;
 	//static	int num = 0;
 	static int	i = 0;
-	if (signal > 0 && signal < 35) {
-		my_putstr("Signal ");
-		a = strsignal(signal);	
-		if (my_strcmp(a, "Quit") == 1)
-			exit(0);
-		if (my_strcmp(a, "User") == 1) {
-			printf("hehe\n");
-			i++;
-		}
-		my_put_nbr(i);
-		my_putstr(a);
-		my_putstr(" recieved from ");
-		my_put_nbr((int)getpid());
+	printf("signal:%d\n", signal);
+	if (signal == 16 || signal == 17 || (signal > 0 && signal < 33)) {
+		counter(1);
+		my_putstr("Enemy connected\n");
+		i++;
+		printf("i:%d\n", i);
 	}
 }
 
-int	who_sig_me()
+struct sigaction	*signals(void)
 {
-	struct sigaction	new_action;
-	int			*signals;
-	int			i;
-	
-	my_put_nbr((int)getpgid(getpid()));
-	signals = malloc(sizeof(int) * 4);
+	int	signals[5];
+	int	i;
+	struct sigaction *new_action;
+
+	new_action = malloc(sizeof(struct sigaction));
+	new_action->sa_handler = &handle_signal;
 	signals[0] = 17;
 	signals[1] = 16;
 	signals[2] = 3;
 	signals[3] = PI;
-	new_action.sa_handler = &handle_signal;
 	for (i = 0; signals[i] != PI; i++) {
-		if (sigaction(signals[i], &new_action, NULL) < 0) {
-			printf("out:%d\n", i);
-			free(signals);
-			return(0);
+		if (sigaction(signals[i], new_action, NULL) < 0) {
+			return(NULL);
 		}
 	}
+	return (new_action);
+}
+int	who_sig_me(char **user1_map, char **user2_map,  int ac, char *pid_user_1)
+{
+	struct sigaction	*new_action;
+	char			*a;
+	
+        if (ac == 3) {
+		kill(my_get_nbr(pid_user_1), SIGQUIT);
+		//kill(my_get_nbr(pid_user_1), SIGUSR1);
+	}
+	new_action = signals();
+	if (new_action == NULL)
+		return (84);
+	for (int i = 0; user1_map[i] != NULL; i++)
+                printf ("map:%s",user1_map[i]);
+
 	while (1) {
-		
+		print_map(user1_map, user2_map);
+		a = get_next_line(0);
+		my_putstr(a);
+		pause();
+		if (counter(9) == 1)
+			printf("yea\n");
 	}
 	return (0);
 }
-        /*
-	while (1) {
-		new_action.sa_handler = termination_handler;
-		sigemptyset (&new_action.sa_mask);
-		new_action.sa_flags = 0;
-		
-		sigaction (SIGINT, NULL, &old_action);
-		if (old_action.sa_handler != SIG_IGN)
-		if (old_action.sa_handler != SIG_IGN)
-			sigaction (SIGINT, &new_action, NULL);
-		sigaction (SIGHUP, NULL, &old_action);
-		if (old_action.sa_handler != SIG_IGN)
-			sigaction (SIGHUP, &new_action, NULL);
-		sigaction (SIGTERM, NULL, &old_action);
-		if (old_action.sa_handler != SIG_IGN)
-			sigaction (SIGTERM, &new_action, NULL);
-	}
-		
-	printf("uu\n");
-	if (sigaction(SIGKILL, &sa, NULL) == -1) {
-		perror("Cannot handle SIGKILL"); // Will always happen
-		printf("You can never handle SIGKILL anyway...\n");
-		
-	}
-	
-
-int	main(int ac, char **av)
-{
-	int	i;
-	printf("%d\n",ac);
-	for (i = 0; i != ac; i++)
-		printf("av:%s\n", av[i]);
-	//proces_info();
-	//if (ac == 2)
-	//kill_it(my_get_nbr(av[1]));
-	if (ac == 4)
-		kill(my_get_nbr(av[3]), SIGUSR1);
-	if (ac == 3 || ac == 4)
-		who_sig_me(my_get_nbr(av[1]), my_get_nbr(av[2]));
-}
-	*/

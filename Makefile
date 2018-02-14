@@ -13,7 +13,8 @@ SRC 	=	navi.c			\
 		get_next_line.c		\
 		put_in_array.c		\
 		main.c			\
-		open_read_file.c
+		open_read_file.c	\
+		print_map.c
 
 
 OBJ	=	$(SRC:.c=.o)
