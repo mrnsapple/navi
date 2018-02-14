@@ -9,27 +9,21 @@
 
 struct coord_t	counter(int x, int y)
 {
-	static struct coord_t	a = {.x = 0, .y = 0}; 
+	static struct coord_t	a = {.y = 0, .x = 0}; 
 	
-	
-	//a->x = 0;
-	a.x++;
-	a.y = 0;
-	printf("numatlast:%d\n", a.x);
+	a.x = a.x + x;
+	a.y = a.y + y;
 	return (a);
 }
 	
 void	handle_signal(int signal)
 {
-	//static	int num = 0;
-	static int	i = 0;
-	printf("signal:%d\n", signal);
-	if (signal > 0 && signal < 40) {
-		counter(1, 2);
-		my_putstr("Enemy connected\n");
-		i++;
-		printf("i:%d\n", i);
-	}
+	//printf("signal:%d\n", signal);
+	if (signal == 30 || signal == 10 || signal == 16) 
+		counter(1, 0);
+	else if (signal == 31 || signal == 12 || signal == 17)
+		counter(0, 1);
+	//my_putstr("Enemy connected\n");
 }
 
 struct sigaction	*signals(void)
@@ -52,15 +46,17 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 {
 	struct sigaction	*new_action;
 	char			*a = NULL;
+	struct coord_t		num;
 	
 	new_action = signals();
 	if (new_action == NULL)
 		return (84);
-	kill(pid, SIGUSR2);
 	while (1) {
 		print_map(user1_map, user2_map, ac);
 		a = get_next_line(0);
 		hit(a, pid);
+		num = counter(0, 0);
+		printf("x:%d, y:%d\n", num.x, num.y);
 		pause();
 		printf("yea\n");
 	}
