@@ -9,9 +9,11 @@
 
 struct coord_t	counter(int x, int y)
 {
-	static struct coord_t	a = {.y = 0, .x = 0}; 
-	
+	static struct coord_t	a = {.y = 0, .x = -1};
+
 	a.x = a.x + x;
+	if (a.x == 0 && a.y == 0)
+		my_putstr("\n\nenemy_connected\n");
 	a.y = a.y + y;
 	return (a);
 }
@@ -26,7 +28,7 @@ void	handle_signal(int signal)
 	//my_putstr("Enemy connected\n");
 }
 
-struct sigaction	*signals(void)
+struct sigaction	*signals(int ac, int pid)
 {
 	int	i;
 	struct sigaction *new_action;
@@ -39,6 +41,8 @@ struct sigaction	*signals(void)
 			return(NULL);
 		}
 	}
+	if (ac == 3)
+		kill(pid, SIGUSR1);
 	return (new_action);
 }
 
@@ -48,7 +52,7 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 	char			*a = NULL;
 	struct coord_t		num;
 	
-	new_action = signals();
+	new_action = signals(ac, pid);
 	if (new_action == NULL)
 		return (84);
 	while (1) {
@@ -57,7 +61,7 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 		hit(a, pid);
 		num = counter(0, 0);
 		printf("x:%d, y:%d\n", num.x, num.y);
-		pause();
+		//pause();
 		printf("yea\n");
 	}
 	return (0);

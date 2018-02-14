@@ -25,14 +25,11 @@ int	main(int ac, char **av)
 
 	if (ac != 2 && ac != 3)
 		exit(84);
-	printbincharpad(10);
-	my_putstr("my_pid ");
+	my_putstr("my_pid: ");
 	my_put_nbr((int)getpid());
 	my_putstr("\n");
-	if (ac == 2) {
-		my_putstr("waiting for enemy conection...");
+	if (ac == 2)
 		user_map = open_function(av[1]);
-	}
 	if (ac == 3)
 		user_map = open_function(av[2]);
 	user_map_empty = feed_empty(user_map);

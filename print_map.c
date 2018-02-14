@@ -32,7 +32,10 @@ int	hit(char *a, int pid)
 int	print_map(char **user1, char **user2, int ac)
 {
 	int	i = 0;
-
+	if (ac == 2) {
+		my_putstr("waiting for enemy conection...\n");
+		for (i = pause(); i != -1; i = pause());
+	}
 	if (ac == 3)
 		my_putstr("succesfully connected\n\n");
 	my_putstr("my positions:\n");
