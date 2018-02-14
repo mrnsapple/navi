@@ -36,7 +36,10 @@ int	main(int ac, char **av)
 	if (ac == 3)
 		user_map = open_function(av[2]);
 	user_map_empty = feed_empty(user_map);
-	who_sig_me(user_map, user_map_empty, ac, av[1]);
+	if (ac == 3)
+		who_sig_me(user_map, user_map_empty, ac, my_get_nbr(av[1]));
+	if (ac == 2)
+		who_sig_me(user_map, user_map_empty, ac, getpid());
 	return (0);
 }
 	
