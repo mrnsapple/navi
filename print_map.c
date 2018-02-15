@@ -30,14 +30,12 @@ int	hit(char *a, int pid)
 	return (0);
 }
 
-int	print_map(char **user1, char **user2, int ac)
+int	print_map(char **user1, char **user2, int ac, int *num)
 {
 	int	i = 0;
-	if (ac == 2) {
-		my_putstr("waiting for enemy conection...\n");
-		for (i = pause(); i != -1; i = pause());
-	}
-	if (ac == 3)
+
+	printf("num:%d\n", (*num));
+	if ((*num) % 2 != 0)
 		my_putstr("succesfully connected\n\n");
 	my_putstr("my positions:\n");
 	for (i = 0; user1[i] != NULL; i++)
@@ -46,9 +44,12 @@ int	print_map(char **user1, char **user2, int ac)
 	for (i = 0; user2[i] !=  NULL; i++)
 		my_putstr(user2[i]);
 	my_putstr("\n");
-	if (ac == 3)
+	if ((*num) % 2 != 0) {
 		my_putstr("waiting for enemy's atack...\n");
-	if (ac == 2)
-		my_putstr("atack: ");	
+		for (i = pause(); i != -1; i = pause());
+	}
+	// else
+	my_putstr("atack: ");
+	(*num)++;
 	return (0);
 }

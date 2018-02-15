@@ -25,8 +25,10 @@ int	main(int ac, char **av)
 	user_map_empty = feed_empty(user_map);
 	if (ac == 3)
 		who_sig_me(user_map, user_map_empty, ac, my_get_nbr(av[1]));
-	if (ac == 2)
+	if (ac == 2) {
+		my_putstr("waiting for enemy conection...\n");
 		who_sig_me(user_map, user_map_empty, ac, getpid());
+	}
 	return (0);
 }
 	
