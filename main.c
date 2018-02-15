@@ -48,44 +48,15 @@ struct sigaction	*signals(int ac, int pid)
 			return(NULL);
 		}
 	}
-	//if (ac == 3)
-	//	kill(pid, SIGUSR1);
 	return (new_action);
 }
 
-long	get_bin_pid(int ac, int pid)
-{
-	long	binary_pid = 0;
-	int	pid_2;
-	
-	if (ac == 3) {
-		pid_2 = (int)getpid();
-		binary_pid = decim_bin(pid_2);
-		printf("%ld\n", binary_pid);
-		binary_pid = 100;
-		while ( binary_pid > 0) {
-			printf("binary:%ld\n", binary_pid);
-			if (binary_pid % 10 == 0) {
-				printf("0\n");
-				kill(pid, SIGUSR1);
-			}
-			else {
-				printf("1\n");
-				kill (pid, SIGUSR2);
-			}
-			binary_pid /= 10;
-		}
-	}
-	return (binary_pid);
-
-}
 int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 {
 	struct sigaction	*new_action;
 	char			*a = NULL;
 	struct coord_t		num;
 	
-	get_bin_pid(ac, pid);
 	new_action = signals(ac, pid);
 	if (new_action == NULL)
 		return (84);
