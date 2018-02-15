@@ -8,6 +8,7 @@
 #include "list.h"
 #include "get_next_line.h"
 
+
 int	hit(char *a, int pid)
 {
 	int	x = 0;
@@ -48,6 +49,6 @@ int	print_map(char **user1, char **user2, int ac)
 	if (ac == 3)
 		my_putstr("waiting for enemy's atack...\n");
 	if (ac == 2)
-		my_putstr("atack :");	
+		my_putstr("atack: ");	
 	return (0);
 }

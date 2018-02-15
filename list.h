@@ -26,13 +26,16 @@ typedef struct	coord_t
 	int	y;
 }coord_t;
 
+
+long	decim_bin(int decimal_num);
+int	binaryToDecimal(int n);
 int	hit(char *a, int pid);
 char    **feed_empty(char **av);
 char    **opene(char *av);
 char    **insert_map(char *av, char **ptr);
 char    **open_function(char    *av);
 int     who_sig_me(char **user1_map, char **user2_map, int ac, int pid);
-void    handle_signal(int signal);
+void    handle_signal(int signal, siginfo_t *siginfo, void *context);
 int     print_map(char **user1, char **user2, int ac);
 
 int	my_strcmp(char *pwd, char *line);
