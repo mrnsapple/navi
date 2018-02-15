@@ -82,15 +82,13 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 	num_print = wait_1_signal(ac, num_print);
 	while (1) {
 		print_map(user1_map, user2_map, ac, &num_print);
-		printf("pid2:%d\n", pid_2);
+		//printf("pid2:%d\n", pid_2);
 		a = get_next_line(0);
 		if (ac == 3)
 			pid_2 = pid;
 		hit(a, pid_2);
 		num = counter(0, 0, 0);
 		printf("x:%d, y:%d\n", num.x, num.y);
-		//pause();
-		printf("yea\n");
 	}
 	return (0);
 }

@@ -44,11 +44,11 @@ int	print_map(char **user1, char **user2, int ac, int *num)
 	for (i = 0; user2[i] !=  NULL; i++)
 		my_putstr(user2[i]);
 	my_putstr("\n");
-	if ((*num) % 2 != 0) {
+	if ((*num) >= 3) {
 		my_putstr("waiting for enemy's atack...\n");
 		for (i = pause(); i != -1; i = pause());
 	}
-	// else
+	//if ((*num) % 2 != 0)
 	my_putstr("atack: ");
 	(*num)++;
 	return (0);
