@@ -13,8 +13,6 @@ int	hit(char *a, int pid)
 {
 	int	x = 0;
 	int	y = 0;
-        //if (nanosleep(&tim, &tim2) < 0)
-		//	return (0);
 
 	if (a == NULL)
 		return (0);
@@ -35,11 +33,7 @@ int	hit(char *a, int pid)
 		kill(pid, SIGUSR1);
 		usleep(1);
 	}
-	/*kill(pid, SIGUSR1);
-	  kill(pid, SIGUSR1);
-	usleep(1);
 	kill(pid, SIGUSR2);
-	*/
 	return (0);
 }
 
@@ -81,6 +75,8 @@ char	*print_map(char **user1, char **user2, int ac, int *num)
 		//for (i = pause(); i != -1; i = pause());
 		for (value = counter(0, 0 , 1); value.z != 3;
 		     value = counter(0, 0, 1));
+		printf("heh");
+		
 	}
 	counter(0, 0 , 0);
 	a = atack(a);
