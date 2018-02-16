@@ -13,7 +13,8 @@ int	hit(char *a, int pid)
 {
 	int	x = 0;
 	int	y = 0;
-	
+
+	printf("a:%s\n",a);
 	if (a == NULL)
 		return (0);
 	if (a[0] >= 'A' && a[0] <= 'H' && a[1] >= '1' && a[1] <= '9' &&
@@ -22,18 +23,41 @@ int	hit(char *a, int pid)
 		y = a[1] - '0' + 1;
 	}
 	printf("x:%d, y:%d\n",x, y);
-	for (x = x; x != 0; x--)
+	for (x = x; x != 0; x--) {
+		printf("num\n");
 		kill(pid, SIGUSR1);
-	for (y = y; y != 0; y--)
-		kill(pid, SIGUSR2);
-	
+	}
+	for (y = y; y != 0; y--) {
+		printf("!num2\n");
+		kill(pid, SIGUSR2);}
 	return (0);
 }
 
-int	print_map(char **user1, char **user2, int ac, int *num)
+char	*atack(char *a)
+{
+	int		i = 0;
+	struct timespec	tim = {.tv_sec = 4, .tv_nsec = 2000};
+	struct timespec tim2;
+
+	if (nanosleep(&tim, &tim2) < 0)
+		return (NULL);
+	while (i == 0) {
+		my_putstr("atack:  ");
+		a = get_next_line(0);
+		if (a[0] >= 'A' && a[0] <= 'H' && a[1] >= '1' && a[1] <= '9' &&
+		    a[2] == '\0')
+			i = 1;
+		else
+			my_putstr("wrong position\n");
+	}
+	return (a);
+}
+
+char	*print_map(char **user1, char **user2, int ac, int *num)
 {
 	int	i = 0;
-
+	char	*a = NULL;
+	
 	printf("num:%d\n", (*num));
 	if ((*num) % 2 != 0)
 		my_putstr("succesfully connected\n\n");
@@ -48,8 +72,11 @@ int	print_map(char **user1, char **user2, int ac, int *num)
 		my_putstr("waiting for enemy's atack...\n");
 		for (i = pause(); i != -1; i = pause());
 	}
+	
 	//if ((*num) % 2 != 0)
-	my_putstr("atack: ");
+	a = atack(a);
+	
+	
 	(*num)++;
-	return (0);
+	return (a);
 }
