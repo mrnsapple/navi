@@ -25,9 +25,11 @@ typedef struct	coord_t
 {
 	int	x;
 	int	y;
+	int	z;
 }coord_t;
 
 
+struct coord_t  counter(int x, int y, int z);
 long	decim_bin(int decimal_num);
 int	binaryToDecimal(int n);
 int	hit(char *a, int pid);
