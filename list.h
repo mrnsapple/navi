@@ -28,7 +28,10 @@ typedef struct	coord_t
 	int	z;
 }coord_t;
 
+int     hit_return(int ret, int pid);
 
+void    print_map_board(char **user1, char **user2);
+char    *atack(char *a);
 struct coord_t  counter(int x, int y, int z);
 long	decim_bin(int decimal_num);
 int	binaryToDecimal(int n);
@@ -39,7 +42,7 @@ char    **insert_map(char *av, char **ptr);
 char    **open_function(char    *av);
 int     who_sig_me(char **user1_map, char **user2_map, int ac, int pid);
 void    handle_signal(int signal, siginfo_t *siginfo, void *context);
-char	*print_map(char **user1, char **user2, int ac, int *num);
+struct coord_t	print_map(char **user1, char **user2, int ac, int *num);
 
 int	my_strcmp(char *pwd, char *line);
 int	reduce_place(int place, int num_match);

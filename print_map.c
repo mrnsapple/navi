@@ -9,6 +9,23 @@
 #include "get_next_line.h"
 
 
+int	hit_return(int ret, int pid)
+{
+	if (ret == 0) {
+		kill(pid, SIGUSR1);
+		usleep(1);
+		kill(pid, SIGUSR2);
+		usleep(1);
+	} else {
+		kill(pid, SIGUSR1);
+		kill(pid, SIGUSR1);
+		usleep(1);
+		kill(pid, SIGUSR2);
+		usleep(1);
+	}
+	return (0);
+}
+
 int	hit(char *a, int pid)
 {
 	int	x = 0;
@@ -18,12 +35,11 @@ int	hit(char *a, int pid)
 		return (0);
 	if (a[0] >= 'A' && a[0] <= 'H' && a[1] >= '1' && a[1] <= '9' &&
 	    a[2] == '\0') {
-		x = (a[0] - 'A' + 1) * 2;
+		x = ((a[0] - 'A' + 1) * 2);
 		y = a[1] - '0' + 1;
 	}
 	printf("x:%d, y:%d\n",x, y);
-	
-	for (y = y; y != 0; y--) {
+	for (; y != 0; y--) {
 		//printf("!num2\n");
 		kill(pid, SIGUSR2);
 		usleep(1);
@@ -53,15 +69,10 @@ char	*atack(char *a)
 	return (a);
 }
 
-char	*print_map(char **user1, char **user2, int ac, int *num)
+void	print_map_board(char **user1, char **user2)
 {
-	int	i = 0;
-	char	*a = NULL;
-	struct coord_t	value;
+	int	i;
 	
-	printf("num:%d\n", (*num));
-	if ((*num) % 2 != 0)
-		my_putstr("succesfully connected\n\n");
 	my_putstr("my positions:\n");
 	for (i = 0; user1[i] != NULL; i++)
 		my_putstr(user1[i]);
@@ -69,19 +80,24 @@ char	*print_map(char **user1, char **user2, int ac, int *num)
 	for (i = 0; user2[i] !=  NULL; i++)
 		my_putstr(user2[i]);
 	my_putstr("\n");
+}
+
+struct coord_t	print_map(char **user1, char **user2, int ac, int *num)
+{
+	int	i = 0;
+	struct coord_t	value = {.x = 0, .y = 0};
+
+	printf("num:%d\n", (*num));
+	if ((*num) % 2 != 0)
+		my_putstr("succesfully connected\n\n");
+	print_map_board(user1, user2);
 	if ((*num) >= 3) {
 		my_putstr("waiting for enemy's atack...\n");
 		for (i = pause(); i != -1; i = pause());
 		//for (i = pause(); i != -1; i = pause());
 		for (value = counter(0, 0 , 1); value.z != 3;
 		     value = counter(0, 0, 1));
-		printf("heh");
-		
-	}
-	counter(0, 0 , 0);
-	a = atack(a);
-	
-	
+        }
 	(*num)++;
-	return (a);
+	return (value);
 }
