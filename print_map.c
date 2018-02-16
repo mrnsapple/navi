@@ -11,13 +11,23 @@
 
 int	hit_return(int ret, int pid)
 {
+	//int	i = 0;
+
 	if (ret == 0) {
+		printf("enter0\n");
+		kill(pid, SIGUSR1);
+		usleep(1);
+		kill(pid, SIGUSR1);
+		usleep(1);
 		kill(pid, SIGUSR1);
 		usleep(1);
 		kill(pid, SIGUSR2);
 		usleep(1);
-	} else {
+	}
+	if (ret == 1) {
+		printf("enter1\n");
 		kill(pid, SIGUSR1);
+		usleep(1);
 		kill(pid, SIGUSR1);
 		usleep(1);
 		kill(pid, SIGUSR2);
@@ -50,6 +60,7 @@ int	hit(char *a, int pid)
 		usleep(1);
 	}
 	kill(pid, SIGUSR2);
+	usleep(1);
 	return (0);
 }
 
