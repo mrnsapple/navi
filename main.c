@@ -22,8 +22,10 @@ struct coord_t	counter(int x, int y, int z)
 	}
 	a.x = a.x + x;
 	a.y = a.y + y;
-	if (x == 0 && y == 1 && z == 1 && a.x != 0)
+	if (x == 0 && y == 1 && z == 1 && a.x != 0) {
+		a.y--;
 		a.z = 3;
+	}
 	//printf("counter:a.y:%d,a.x:%d\n", a.y, a.x);
 	return (a);
 }
@@ -68,7 +70,8 @@ struct sigaction	*signals(int ac, int pid)
 	}
 	if (ac == 3) {
 		kill(pid, SIGUSR1);
-		counter(0, 0 , 1);
+		kill(pid, SIGUSR2);
+		counter(0, 0 , 0);
 	}
 	return (new_action);
 }
@@ -105,12 +108,12 @@ char	**is_there_ship_atack(struct coord_t num,
 	int	x;
 	int	y;
 
-	if (num.x == 1 && num.y == 1) {
+	if (num.x == 1 && num.y == 0) {
 		x = ((a[0] - 'A' + 1) * 2);
 		y = a[1] - '0' + 1;
 		user2_map[y][x] = 'o';
 	}
-	if (num.x == 2 && num.y == 1) {
+	if (num.x == 2 && num.y == 0) {
 		x = ((a[0] - 'A' + 1) * 2);
 		y = a[1] - '0' + 1;
 		user2_map[y][x] = 'x';
