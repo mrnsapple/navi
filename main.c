@@ -23,7 +23,8 @@ struct coord_t	counter(int x, int y, int z)
 	a.x = a.x + x;
 	a.y = a.y + y;
 	if (x == 0 && y == 1 && z == 1 && a.x != 0)
-		a.z = 3; 
+		a.z = 3;
+	//printf("counter:a.y:%d,a.x:%d\n", a.y, a.x);
 	return (a);
 }
 
@@ -33,11 +34,11 @@ void	handle_signal(int signal, siginfo_t *siginfo, void *context)
 
 	pid_2 = siginfo->si_pid;
 	//printf("send_pid%d\n", pid_2);
-	//printf("signal:%d\n", signal);
+	printf("signal:%d\n", signal);
 	if (signal == 30 || signal == 10 || signal == 16) 
 		a = counter(1, 0, 1);
 	else if (signal == 31 || signal == 12 || signal == 17)
-		counter(0, 1, 1);
+		a = counter(0, 1, 1);
 	printf("handlesignal:a.y:%d,a.x:%d\n", a.y, a.x);
 }
 
@@ -83,16 +84,19 @@ int	wait_1_signal(int ac, int num_print)
 
 int	is_there_ship(struct coord_t num, char **user1_map, char **user2_map, int ac)
 {
+	printf("position:%c\n", user1_map[num.y][num.x]);
+	if (ac <= 3)
+		return (3);
 	if (num.x != 0 && num.y != 0) {
-		//if (user1_map[num.x][num.y] != '*') {
-		user2_map[num.y][num.x] = 'x';
-		return (1);
-		//} else
-		//	user2_map[num.y][num.x] = 'o';
+		if (user1_map[num.y][num.x] != '.') {
+			user1_map[num.y][num.x] = 'x';
+			return (1);
+		} else
+			user1_map[num.y][num.x] = 'o';
 	}
-	if (ac >= 3)
-		return (0);
-	return (3);
+	if (user1_map[num.y][num.x] != '.')
+		return (1);
+	return (0);
 }
 
 char	**is_there_ship_atack(struct coord_t num,
@@ -104,12 +108,12 @@ char	**is_there_ship_atack(struct coord_t num,
 	if (num.x == 1 && num.y == 1) {
 		x = ((a[0] - 'A' + 1) * 2);
 		y = a[1] - '0' + 1;
-		user2_map[y][x] = 'x';
+		user2_map[y][x] = 'o';
 	}
 	if (num.x == 2 && num.y == 1) {
 		x = ((a[0] - 'A' + 1) * 2);
 		y = a[1] - '0' + 1;
-		user2_map[y][x] = 'o';
+		user2_map[y][x] = 'x';
 	}
 	return (NULL);
 }
@@ -121,7 +125,7 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 	struct coord_t		num = {.x = 0, .y = 0};
 	int			num_print = ac;
 	int			ret = 3;
-	int			i;
+	//int			i;
 	struct coord_t  value = {.x = 0, .y = 0};
 
 	new_action = signals(ac, pid);
@@ -134,8 +138,8 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 		is_there_ship_atack(num, user1_map, user2_map, a);
 		num = print_map(user1_map, user2_map, ac, &num_print);
 		//printf("pid2:%d\n", pid_2);
-		printf("num.x,%dnum.y:%d\n",num.x, num.y);
-		ret = is_there_ship(num, user1_map, user2_map, ac);
+		printf("num.x,%dnum.y:%d, %d\n",num.x, num.y, num_print);
+		ret = is_there_ship(num, user1_map, user2_map, num_print);
 		printf("ret:%d,pid_:%d\n", ret, pid_2);
 		hit_return(ret, pid_2);
 		if (num_print > 3)
@@ -145,14 +149,17 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 		counter(0, 0, 0);
 		//
 		a = atack(a);
+		//printf("hehe\n");
 		if (ac == 3)
 			pid_2 = pid;
 		printf("a:%s\n",a);
 		hit(a, pid_2);
-		num = counter(0, 0, 0);
-		for (i = pause(); i != -1; i = pause());
+		//num = counter(0, 0, 0);
+		//for (i = pause(); i != -1; i = pause());
+		//for (i = pause(); i != -1; i = pause());
 		for (value = counter(0, 0 , 1); value.z != 3;
-		     value = counter(0, 0, 1));
+		     value = counter(0, 0, 1))
+			printf("v.x%dv.y%dvz%d\n", value.x, value.y, value.z);
 		//printf("x:%d, y:%d\n", num.x, num.y);
 	}
 	return (0);
