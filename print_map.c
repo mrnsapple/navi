@@ -13,7 +13,7 @@ int	hit_return(int ret, int pid)
 {
 	//int	i = 0;
 	if (ret == 0) {
-		printf("enter0\n");
+		//printf("enter0\n");
 		kill(pid, SIGUSR1);
 		usleep(1);
 		kill(pid, SIGUSR1);
@@ -24,7 +24,7 @@ int	hit_return(int ret, int pid)
 		usleep(1);
 	}
 	if (ret == 1) {
-		printf("enter1\n");
+		//printf("enter1\n");
 		kill(pid, SIGUSR1);
 		usleep(1);
 		kill(pid, SIGUSR1);
@@ -32,6 +32,21 @@ int	hit_return(int ret, int pid)
 		kill(pid, SIGUSR2);
 		usleep(1);
 	}
+	return (0);
+}
+
+int	send_lose(int pid)
+{
+	kill(pid, SIGUSR1);
+	usleep(1);
+	kill(pid, SIGUSR1);
+	usleep(1);
+	kill(pid, SIGUSR1);
+	usleep(1);
+	kill(pid, SIGUSR1);
+	usleep(1);
+	kill(pid, SIGUSR2);
+	usleep(1);
 	return (0);
 }
 
@@ -48,7 +63,8 @@ int	hit(char *a, int pid)
 		//y = a[1] - '0' + 1;
 		y = a[1] - '0' + 1;
 	}
-	printf("x:%d, y:%d\n",x, y);
+	//y++;
+	//printf("x:%d, y:%d\n",x, y);
 	for (; y != 0; y--) {
 		//printf("!num2\n");
 		kill(pid, SIGUSR2);
@@ -85,7 +101,7 @@ char	*atack(char *a)
 void	print_map_board(char **user1, char **user2)
 {
 	int	i;
-	
+
 	my_putstr("my positions:\n");
 	for (i = 0; user1[i] != NULL; i++)
 		my_putstr(user1[i]);
@@ -100,7 +116,7 @@ struct coord_t	print_map(char **user1, char **user2, int ac, int *num)
 	int	i = 0;
 	struct coord_t	value = {.x = 0, .y = 0};
 
-	printf("num:%d\n", (*num));
+	//printf("num:%d\n", (*num));
 	if ((*num) % 2 != 0)
 		my_putstr("succesfully connected\n\n");
 	print_map_board(user1, user2);

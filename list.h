@@ -29,7 +29,7 @@ typedef struct	coord_t
 }coord_t;
 
 int     hit_return(int ret, int pid);
-
+int     send_lose(int pid);
 void    print_map_board(char **user1, char **user2);
 char    *atack(char *a);
 struct coord_t  counter(int x, int y, int z);
