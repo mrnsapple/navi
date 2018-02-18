@@ -33,8 +33,10 @@ int	main(int ac, char **av)
 	my_putstr("\n");
 	if (ac == 2)
 		user_map = open_function(av[1]);
-	if (ac == 3)
+	if (ac == 3) {
+		my_putstr("succesfully connected\n\n");
 		user_map = open_function(av[2]);
+	}
 	user_map_empty = feed_empty(user_map);
 	if (ac == 3)
 		who_sig_me(user_map, user_map_empty, ac, my_get_nbr(av[1]));

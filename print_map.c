@@ -105,11 +105,10 @@ void	print_map_board(char **user1, char **user2)
 	my_putstr("my positions:\n");
 	for (i = 0; user1[i] != NULL; i++)
 		my_putstr(user1[i]);
-	my_putstr("\nenemy's position:\n");
+	my_putstr("enemy's position:\n");
 	for (i = 0; user2[i] !=  NULL; i++)
 		my_putstr(user2[i]);
-	my_putstr("\n");
-}
+	}
 
 struct coord_t	print_map(char **user1, char **user2, int ac, int *num)
 {
@@ -117,17 +116,17 @@ struct coord_t	print_map(char **user1, char **user2, int ac, int *num)
 	struct coord_t	value = {.x = 0, .y = 0};
 
 	//printf("num:%d\n", (*num));
-	if ((*num) % 2 != 0)
-		my_putstr("succesfully connected\n\n");
-	print_map_board(user1, user2);
 	if ((*num) >= 3) {
 		counter(0, 0, 0);
-		my_putstr("waiting for enemy's atack...\n");
+		if ((*num) == 3 && ac == 3)
+			print_map_board(user1, user2);
+		my_putstr("\nwaiting for enemy's atack...\n");
 		for (i = pause(); i != -1; i = pause());
 		//for (i = pause(); i != -1; i = pause());
 		for (value = counter(0, 0 , 1); value.z != 3;
 		     value = counter(0, 0, 1));
         }
+	//print_map_board(user1, user2);
 	//value.y--;
 	(*num)++;
 	return (value);

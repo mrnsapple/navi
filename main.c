@@ -78,9 +78,11 @@ struct sigaction	*signals(int ac, int pid)
 
 int	wait_1_signal(int ac, int num_print)
 {
-	if (ac == 2)
+	if (ac == 2) {
 		for (num_print = pause();
 		     num_print != -1; num_print = pause());
+		my_putstr("enemy connected\n");
+	}
 	num_print = ac;
 	return (num_print);
 }
@@ -180,13 +182,22 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 		is_there_ship_atack(num, user1_map, user2_map, a);
 		if (you_won(num) == 0)
 			return (0);
+		if (ac == 3 && num_print % 2 == 0)
+			print_map_board(user1_map, user2_map);
 		num = print_map(user1_map, user2_map, ac, &num_print);
 		//printf("pid2:%d\n", pid_2);
 		//printf("num.x,%dnum.y:%d, %d\n",num.x, num.y, num_print);
 		ret = is_there_ship(num, user1_map, user2_map, num_print);
 		//printf("ret:%d,pid_:%d\n", ret, pid_2);
-		if (num_print > 3)
+		printf("num_print:%d, ac :%d\n",num_print, ac);
+		
+		if (ac == 2 && num_print % 2 == 0)
 			print_map_board(user1_map, user2_map);
+		//if (ac == 3 && num_print % 2 != 0)
+		//	print_map_board(user1_map, user2_map);
+
+//if (num_print > 3)
+		//	print_map_board(user1_map, user2_map);
 		counter(0, 0, 0);
 		
 		if (lose(user1_map) == 0) {
@@ -201,8 +212,8 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 		a = atack(a);
 		if (ac == 3)
 			pid_2 = pid;
-		//printf("a:%s\n",a);
 		hit(a, pid_2);
+		
 		//num = counter(0, 0, 0);
 		//for (i = pause(); i != -1; i = pause());
 		for (value = counter(0, 0 , 1); value.z != 3;
