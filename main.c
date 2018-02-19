@@ -13,8 +13,6 @@ struct coord_t	counter(int x, int y, int z)
 {
 	static struct coord_t	a = {.y = 0, .x = 0, .z = 0};
 
-	//if (a.x == 0 && a.y == 0)
-	//	my_putstr("\n\nenemy_connected\n");
 	if (z == 0) {
 		a.y = 0;
 		a.x = 0;
@@ -26,22 +24,16 @@ struct coord_t	counter(int x, int y, int z)
 		a.y--;
 		a.z = 3;
 	}
-	//printf("counter:a.y:%d,a.x:%d\n", a.y, a.x);
 	return (a);
 }
 
 void	handle_signal(int signal, siginfo_t *siginfo, void *context)
 {
-	//static struct coord_t	a;
-
 	pid_2 = siginfo->si_pid;
-	//printf("send_pid%d\n", pid_2);
-	//printf("signal:%d\n", signal);
 	if (signal == 30 || signal == 10 || signal == 16) 
-		/*a = */counter(1, 0, 1);
+		counter(1, 0, 1);
 	else if (signal == 31 || signal == 12 || signal == 17)
-		/*a = */counter(0, 1, 1);
-	//printf("handlesignal:a.y:%d,a.x:%d\n", a.y, a.x);
+		counter(0, 1, 1);
 }
 
 void	handle(int signal)
@@ -81,7 +73,7 @@ int	wait_1_signal(int ac, int num_print)
 	if (ac == 2) {
 		for (num_print = pause();
 		     num_print != -1; num_print = pause());
-		my_putstr("enemy connected\n");
+		my_putstr("\nenemy connected\n\n");
 	}
 	num_print = ac;
 	return (num_print);
@@ -100,11 +92,11 @@ int	is_there_ship(struct coord_t num, char **user1_map, char **user2_map, int ac
 		a[2] = '\0';
 		my_putstr(a);
 		if (user1_map[num.y][num.x] != '.') {
-			my_putstr("   hit\n");
+			my_putstr("   hit\n\n");
 			user1_map[num.y][num.x] = 'x';
 			return (0);
 		} else {
-			my_putstr("   missed\n");
+			my_putstr("   missed\n\n");
 			user1_map[num.y][num.x] = 'o';
 			return (1);
 		}
@@ -178,18 +170,14 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 	num_print = wait_1_signal(ac, num_print);
 	while (1) {
 		num = counter(0, 0, 1);
-		//printf("numbefore.x,%dnum.y:%d\n",num.x, num.y);
 		is_there_ship_atack(num, user1_map, user2_map, a);
 		if (you_won(num) == 0)
 			return (0);
+		//printf("numbefore.x,%dnum.y:%d\n",num.x, num.y);
 		if (ac == 3)
 			print_map_board(user1_map, user2_map);
 		num = print_map(user1_map, user2_map, ac, &num_print);
-		//printf("pid2:%d\n", pid_2);
-		//printf("num.x,%dnum.y:%d, %d\n",num.x, num.y, num_print);
 		ret = is_there_ship(num, user1_map, user2_map, num_print);
-		//printf("ret:%d,pid_:%d\n", ret, pid_2);
-		printf("num_print:%d, ac :%d\n",num_print, ac);
 		if (ac == 2)
 			print_map_board(user1_map, user2_map);
 		if (lose_function(user1_map, pid_2, ret) == 0)

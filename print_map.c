@@ -57,18 +57,13 @@ int	hit(char *a, int pid)
 	if (a[0] >= 'A' && a[0] <= 'H' && a[1] >= '1' && a[1] <= '9' &&
 	    a[2] == '\0') {
 		x = ((a[0] - 'A' + 1) * 2);
-		//y = a[1] - '0' + 1;
 		y = a[1] - '0' + 1;
 	}
-	//y++;
-	//printf("x:%d, y:%d\n",x, y);
 	for (; y != 0; y--) {
-		//printf("!num2\n");
 		kill(pid, SIGUSR2);
 		usleep(1);
 	}
 	for (; x != 0; x--) {
-		//printf("num\n");
 		kill(pid, SIGUSR1);
 		usleep(1);
 	}
@@ -102,10 +97,12 @@ void	print_map_board(char **user1, char **user2)
 	my_putstr("my positions:\n");
 	for (i = 0; user1[i] != NULL; i++)
 		my_putstr(user1[i]);
+	my_putstr("\n");
 	my_putstr("enemy's position:\n");
 	for (i = 0; user2[i] !=  NULL; i++)
 		my_putstr(user2[i]);
-	}
+	my_putstr("\n");
+}
 
 struct coord_t	print_map(char **user1, char **user2, int ac, int *num)
 {
@@ -115,8 +112,8 @@ struct coord_t	print_map(char **user1, char **user2, int ac, int *num)
 	//printf("num:%d\n", (*num));
 	if ((*num) >= 3) {
 		counter(0, 0, 0);
-		if ((*num) == 3 && ac == 3)
-			print_map_board(user1, user2);
+		//if ((*num) == 3 && ac == 3)
+		//	print_map_board(user1, user2);
 		my_putstr("\nwaiting for enemy's atack...\n");
 		for (i = pause(); i != -1; i = pause());
 		//for (i = pause(); i != -1; i = pause());
