@@ -182,7 +182,7 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 		is_there_ship_atack(num, user1_map, user2_map, a);
 		if (you_won(num) == 0)
 			return (0);
-		if (ac == 3 && num_print % 2 == 0)
+		if (ac == 3) /*&& num_print % 2 == 0)*/
 			print_map_board(user1_map, user2_map);
 		num = print_map(user1_map, user2_map, ac, &num_print);
 		//printf("pid2:%d\n", pid_2);
@@ -191,7 +191,7 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 		//printf("ret:%d,pid_:%d\n", ret, pid_2);
 		printf("num_print:%d, ac :%d\n",num_print, ac);
 		
-		if (ac == 2 && num_print % 2 == 0)
+		if (ac == 2 )/*&& num_print % 2 == 0)*/
 			print_map_board(user1_map, user2_map);
 		//if (ac == 3 && num_print % 2 != 0)
 		//	print_map_board(user1_map, user2_map);
