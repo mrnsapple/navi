@@ -56,7 +56,7 @@ char    **insert_map(char *av, char **ptr)
  	int     fd;
 	char    buf[2];
 	int     i;
-	int     num[2] = {0,0};
+	int     num[2] = {0, 0};
 
 	if ((fd = open(av, O_RDONLY)) == -1)
 		return (NULL);
@@ -109,5 +109,5 @@ char	**open_function(char	*av)
 	user1_map = insert_map(av, user1_map);
 	final_map = create_map(user1_map);
 	free(user1_map);
-	return (user1_map);
+	return (final_map);
 }
