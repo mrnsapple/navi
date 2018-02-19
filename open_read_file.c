@@ -47,7 +47,7 @@ char    **opene(char *av)
 			num[0]++;
 		num[1]++;
 	}
-	ptr = malloca(num[0], num[1] / num [0]);
+	ptr = malloca(8, 8);
 	return (ptr);
 }
 
@@ -71,14 +71,43 @@ char    **insert_map(char *av, char **ptr)
 		num[1]++;
 	}
 	ptr[num[0]] = NULL;
+	for (i = 0; ptr[i] != NULL; i++)
+		printf("ptr[i]:%s\n", ptr[i]);
 	return (ptr);
+}
+
+char	**create_map(char map)
+{
+	char	**final_map;
+	int	x = 0;
+	int	y = 0;
+	int	i;
+	int	num;
+	
+	final_map = malloca(8, 8);
+	final_map[0] = " |A B C D E F G H\n";
+	final_map[1] = "-+-----------------";
+	for (i = 2; i != 9; i++)
+		final_map[i] = "1|. . . . . . . .\n";
+	final_map[i] == NULL;
+	for (i = 0; final_map[i] != NULL; i++) {
+		x = (map[2] - 'A' + 1) * 2;
+		y  = map[3] - 'O' + 1;
+		for (num = map[0] - 'O';
+		
+		final_map[y][x]
+		printf("final:%s\n", final_map[i]);
 }
 
 char	**open_function(char	*av)
 {
 	char	**user1_map;
+	char	**final_map;
 	
-	user1_map = opene(av);
+	//user1_map = opene(av);
+	user1_map = malloca(8, 8);
 	user1_map = insert_map(av, user1_map);
+	final_map = create_map(user1_map);
+	free(user1_map);
 	return (user1_map);
 }
