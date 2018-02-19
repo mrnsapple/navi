@@ -14,7 +14,9 @@ SRC 	=	navi.c			\
 		put_in_array.c		\
 		main.c			\
 		open_read_file.c	\
-		print_map.c
+		print_map.c		\
+		main_loop_parts.c
+
 
 
 OBJ	=	$(SRC:.c=.o)

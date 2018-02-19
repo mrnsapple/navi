@@ -11,9 +11,7 @@
 
 int	hit_return(int ret, int pid)
 {
-	//int	i = 0;
 	if (ret == 0) {
-		//printf("enter0\n");
 		kill(pid, SIGUSR1);
 		usleep(1);
 		kill(pid, SIGUSR1);
@@ -24,7 +22,6 @@ int	hit_return(int ret, int pid)
 		usleep(1);
 	}
 	if (ret == 1) {
-		//printf("enter1\n");
 		kill(pid, SIGUSR1);
 		usleep(1);
 		kill(pid, SIGUSR1);
@@ -88,7 +85,7 @@ char	*atack(char *a)
 	while (i == 0) {
 		my_putstr("atack:  ");
 		counter(0, 0, 0);
-		a = get_next_line(0);
+		for (a = get_next_line(0); a == NULL; a = get_next_line(0)); 
 		if (a[0] >= 'A' && a[0] <= 'H' && a[1] >= '1' && a[1] <= '9' &&
 		    a[2] == '\0')
 			i = 1;

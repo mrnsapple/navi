@@ -28,6 +28,9 @@ typedef struct	coord_t
 	int	z;
 }coord_t;
 
+int     lose_function(char **user1_map, int pid_2, int ret);
+int     lose(char **map);
+
 int     hit_return(int ret, int pid);
 int     send_lose(int pid);
 void    print_map_board(char **user1, char **user2);

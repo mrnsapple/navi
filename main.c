@@ -141,7 +141,7 @@ int	lose(char **map)
 {
 	int	i;
 	int	g;
-	//my_putstr("\nEnemy\n\n");
+
 	for (i = 2; map[i] != NULL; i++) {
 		for (g = 2; map[i][g] != '\0'; g++) {
 			if (map[i][g] == '2' || map[i][g] == '3'
@@ -182,7 +182,7 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 		is_there_ship_atack(num, user1_map, user2_map, a);
 		if (you_won(num) == 0)
 			return (0);
-		if (ac == 3) /*&& num_print % 2 == 0)*/
+		if (ac == 3)
 			print_map_board(user1_map, user2_map);
 		num = print_map(user1_map, user2_map, ac, &num_print);
 		//printf("pid2:%d\n", pid_2);
@@ -190,35 +190,16 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 		ret = is_there_ship(num, user1_map, user2_map, num_print);
 		//printf("ret:%d,pid_:%d\n", ret, pid_2);
 		printf("num_print:%d, ac :%d\n",num_print, ac);
-		
-		if (ac == 2 )/*&& num_print % 2 == 0)*/
+		if (ac == 2)
 			print_map_board(user1_map, user2_map);
-		//if (ac == 3 && num_print % 2 != 0)
-		//	print_map_board(user1_map, user2_map);
-
-//if (num_print > 3)
-		//	print_map_board(user1_map, user2_map);
-		counter(0, 0, 0);
-		
-		if (lose(user1_map) == 0) {
-			send_lose(pid_2);
+		if (lose_function(user1_map, pid_2, ret) == 0)
 			return (0);
-		}
-		hit_return(ret, pid_2);
-		if (lose(user1_map) == 0) {
-			send_lose(pid_2);
-			return (0);
-		}
 		a = atack(a);
 		if (ac == 3)
 			pid_2 = pid;
 		hit(a, pid_2);
-		
-		//num = counter(0, 0, 0);
-		//for (i = pause(); i != -1; i = pause());
 		for (value = counter(0, 0 , 1); value.z != 3;
 		     value = counter(0, 0, 1));
-			//printf("v.x%dv.y%dvz%d\n", value.x, value.y, value.z);
 	}
 	return (0);
 }
