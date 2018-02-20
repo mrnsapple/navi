@@ -75,39 +75,72 @@ char    **insert_map(char *av, char **ptr)
 		printf("ptr[i]:%s\n", ptr[i]);
 	return (ptr);
 }
+char	**create_map_base()
+{
+	char	**map;
+	int	i;
+	int	y;
 
-char	**create_map(char map)
+	map = malloca(8, 8);
+	map[0] = " |A B C D E F G H\n";
+	map[1] = "-+---------------\n";
+	for (i = 2; i != 10; i++) {
+		map[i][0] = (i - 1) + '0';
+		map[i][1] = '|';
+		for (y = 2; y < 15; y+=2){
+			map[i][y] = '.';
+			map[i][y + 1] = ' ';
+		}
+		map[i][y] = '.';
+		map[i][y + 1] = '\n';
+	}
+	return (map);
+}
+
+char	**create_map(char **map)
 {
 	char	**final_map;
-	int	x = 0;
-	int	y = 0;
+	int	x1 = 0;
+	int	y1 = 0;
+	int	x2 = 0;
+	int	y2 = 0;
 	int	i;
+	int	y;
 	int	num;
-	
-	final_map = malloca(8, 8);
-	final_map[0] = " |A B C D E F G H\n";
-	final_map[1] = "-+-----------------";
-	for (i = 2; i != 9; i++)
-		final_map[i] = "1|. . . . . . . .\n";
-	final_map[i] == NULL;
-	for (i = 0; final_map[i] != NULL; i++) {
-		x = (map[2] - 'A' + 1) * 2;
-		y  = map[3] - 'O' + 1;
-		for (num = map[0] - 'O';
+
+	final_map = create_map_base();
+	for (i = 0; i < 10; i++)
+		printf("%s", final_map[i]);
+	for (i = 0; map[i] != NULL; i++) {
 		
-		final_map[y][x]
-		printf("final:%s\n", final_map[i]);
+		x1 = (map[i][2] - 'A' + 1) * 2;
+		y1  = map[i][3] - '0' + 1;
+		x2 = (map[i][5] - 'A' + 1) * 2;
+		y2 = map[i][6] - '0' + 1;
+		num = map[0][0] - '0';
+		if (x1 == x2) {
+			for (y = num; y > 0; y--)
+				final_map[y1 + (y - 1)][x1] = num - '0';
+		}
+		else if (y1 == y2) {
+			for (y = num; y != 0; y--)
+				final_map[y1][x1 + (y - 1)] = num - '0';
+		}
+	}
+	return (final_map);
 }
 
 char	**open_function(char	*av)
 {
 	char	**user1_map;
 	char	**final_map;
-	
+	int	i;
 	//user1_map = opene(av);
 	user1_map = malloca(8, 8);
 	user1_map = insert_map(av, user1_map);
 	final_map = create_map(user1_map);
 	free(user1_map);
+	for (i = 0; final_map[i] != NULL; i++)
+		printf("%s", final_map[i]);
 	return (final_map);
 }
