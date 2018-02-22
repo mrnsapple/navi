@@ -13,16 +13,16 @@ long    get_bin_pid(int ac, int pid)
         if (ac == 3) {
                 pid_2 = (int)getpid();
                 binary_pid = decim_bin(pid_2);
-                printf("%ld\n", binary_pid);
+                //printf("%ld\n", binary_pid);
                 binary_pid = 100;
                 while ( binary_pid > 0) {
-                        printf("binary:%ld\n", binary_pid);
+			// printf("binary:%ld\n", binary_pid);
                         if (binary_pid % 10 == 0) {
-                                printf("0\n");
+                                //printf("0\n");
                                 kill(pid, SIGUSR1);
                         }
                         else {
-                              	printf("1\n");
+                              	//printf("1\n");
                                 kill (pid, SIGUSR2);
                         }
                         binary_pid /= 10;
@@ -76,7 +76,7 @@ int binaryToDecimal(int n)
         dec_value += last_digit*base;
         base = base*2;
     }
-    printf("%d\n", dec_value);
+    //printf("%d\n", dec_value);
     return dec_value;
 }
 

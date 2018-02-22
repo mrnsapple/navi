@@ -71,9 +71,7 @@ char    **insert_map(char *av, char **ptr)
 		num[1]++;
 	}
 	ptr[num[0]] = NULL;
-	for (i = 0; ptr[i] != NULL; i++)
-		printf("ptr[i]:%s\n", ptr[i]);
-	return (ptr);
+        return (ptr);
 }
 char	**create_map_base()
 {
@@ -107,24 +105,26 @@ char	**create_map(char **map)
 	int	i;
 	int	y;
 	int	num;
+	int	x;
 
 	final_map = create_map_base();
-	for (i = 0; i < 10; i++)
-		printf("%s", final_map[i]);
 	for (i = 0; map[i] != NULL; i++) {
 		
 		x1 = (map[i][2] - 'A' + 1) * 2;
 		y1  = map[i][3] - '0' + 1;
 		x2 = (map[i][5] - 'A' + 1) * 2;
 		y2 = map[i][6] - '0' + 1;
-		num = map[0][0] - '0';
+		num = map[i][0] - '0';
+		x = 0;
 		if (x1 == x2) {
 			for (y = num; y > 0; y--)
-				final_map[y1 + (y - 1)][x1] = num - '0';
+				final_map[y1 + (y - 1)][x1] = num + '0';
 		}
 		else if (y1 == y2) {
-			for (y = num; y != 0; y--)
-				final_map[y1][x1 + (y - 1)] = num - '0';
+			for (y = num; y > 0; y--) {
+				final_map[y1][x2 - x] = num + '0';
+				x = x + 2;
+			}
 		}
 	}
 	return (final_map);
@@ -134,13 +134,11 @@ char	**open_function(char	*av)
 {
 	char	**user1_map;
 	char	**final_map;
-	int	i;
-	//user1_map = opene(av);
+
+//user1_map = opene(av);
 	user1_map = malloca(8, 8);
 	user1_map = insert_map(av, user1_map);
 	final_map = create_map(user1_map);
 	free(user1_map);
-	for (i = 0; final_map[i] != NULL; i++)
-		printf("%s", final_map[i]);
 	return (final_map);
 }
