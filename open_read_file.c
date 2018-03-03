@@ -58,7 +58,9 @@ char    **insert_map(char *av, char **ptr)
 	int     i;
 	int     num[2] = {0, 0};
 
-	if ((fd = open(av, O_RDONLY)) == -1)
+	fd = open(av, O_RDONLY);
+	printf("fd:%d\n", fd);
+	if (fd == -1)
 		return (NULL);
 	for (i = read(fd, buf, 1);
 	     i != 0; i = read(fd, buf, 1)) {
@@ -138,6 +140,8 @@ char	**open_function(char	*av)
 //user1_map = opene(av);
 	user1_map = malloca(8, 8);
 	user1_map = insert_map(av, user1_map);
+	if (user1_map == NULL)
+		return (NULL);
 	final_map = create_map(user1_map);
 	free(user1_map);
 	return (final_map);

@@ -161,8 +161,7 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 	struct coord_t		num = {.x = 0, .y = 0};
 	int			num_print = ac;
 	int			ret = 3;
-	//int			i;
-	struct coord_t  value = {.x = 0, .y = 0};
+	struct coord_t		value = {.x = 0, .y = 0};
 
 	new_action = signals(ac, pid);
 	if (new_action == NULL)
