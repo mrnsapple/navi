@@ -59,7 +59,6 @@ char    **insert_map(char *av, char **ptr)
 	int     num[2] = {0, 0};
 
 	fd = open(av, O_RDONLY);
-	printf("fd:%d\n", fd);
 	if (fd == -1)
 		return (NULL);
 	for (i = read(fd, buf, 1);
