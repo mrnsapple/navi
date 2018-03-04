@@ -15,7 +15,8 @@ SRC 	=	navi.c			\
 		main.c			\
 		open_read_file.c	\
 		print_map.c		\
-		main_loop_parts.c
+		main_loop_parts.c	\
+		main2.c
 
 
 

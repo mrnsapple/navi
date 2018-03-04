@@ -73,7 +73,7 @@ char    **insert_map(char *av, char **ptr)
 	ptr[num[0]] = NULL;
         return (ptr);
 }
-char	**create_map_base()
+char	**create_map_base(void)
 {
 	char	**map;
 	int	i;
@@ -135,7 +135,6 @@ char	**open_function(char	*av)
 	char	**user1_map;
 	char	**final_map;
 
-//user1_map = opene(av);
 	user1_map = malloca(8, 8);
 	user1_map = insert_map(av, user1_map);
 	final_map = create_map(user1_map);

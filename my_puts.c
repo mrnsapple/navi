@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2018
-**
+** navi
 ** File description:
-**
+** puts
 */
 
 #include <stdlib.h>

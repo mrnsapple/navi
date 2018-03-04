@@ -1,10 +1,9 @@
 /*
 ** EPITECH PROJECT, 2018
-**
+** puts
 ** File description:
-**
+** puts
 */
-
 #include "list.h"
 
 void	my_putchar_error(char c)

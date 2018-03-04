@@ -7,6 +7,13 @@
 
 #include "list.h"
 
+int     is_there_ship(struct coord_t num, char **user1_map, char **user2_map, int ac);
+char    **is_there_ship_atack(struct coord_t num,
+			      char **user1_map, char **user2_map, char *a);
+int     you_won(struct coord_t num);
+int     wait_1_signal(int ac, int num_print);
+int     who_sig_me(char **user1_map, char **user2_map,  int ac, int pid);
+
 int	pid_2 = 0;
 
 struct coord_t	counter(int x, int y, int z)
@@ -38,7 +45,6 @@ void	handle_signal(int signal, siginfo_t *siginfo, void *context)
 
 void	handle(int signal)
 {
-	//printf("signal:%d\n", signal);
 	if (signal == 30 || signal == 10 || signal == 16) 
 		counter(1, 0, 1);
 	else if (signal == 31 || signal == 12 || signal == 17)
@@ -52,7 +58,6 @@ struct sigaction	*signals(int ac, int pid)
 	int			signals[9] = {17, 16, 3, 10, 12, 30, 31, PI};
 
 	new_action = malloc(sizeof(struct sigaction));
-	//new_action->sa_handler = &handle;
 	new_action->sa_sigaction = &handle_signal;
 	new_action->sa_flags = SA_SIGINFO;
 	for (i = 0; signals[i] != PI; i++) {
@@ -68,100 +73,14 @@ struct sigaction	*signals(int ac, int pid)
 	return (new_action);
 }
 
-int	wait_1_signal(int ac, int num_print)
-{
-	if (ac == 2) {
-		for (num_print = pause();
-		     num_print != -1; num_print = pause());
-		my_putstr("\nenemy connected\n\n");
-	}
-	num_print = ac;
-	return (num_print);
-}
 
-int	is_there_ship(struct coord_t num, char **user1_map, char **user2_map, int ac)
+int     who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 {
-	//printf("position:%c\n", user1_map[num.y][num.x]);
-	char	a[4];
-	
-	if (ac <= 3)
-		return (3);
-	if (num.x != 0 && num.y != 0) {
-		a[0] = (num.x / 2) - 1 + 'A';
-		a[1] = num.y - 1 + '0';
-		a[2] = '\0';
-		my_putstr(a);
-		if (user1_map[num.y][num.x] != '.') {
-			my_putstr("   hit\n\n");
-			user1_map[num.y][num.x] = 'x';
-			return (0);
-		} else {
-			my_putstr("   missed\n\n");
-			user1_map[num.y][num.x] = 'o';
-			return (1);
-		}
-	}
-	if (user1_map[num.y][num.x] != '.')
-		return (0);
-	return (1);
-}
-
-char	**is_there_ship_atack(struct coord_t num,
-			      char **user1_map, char **user2_map, char *a)
-{
-	int	x;
-	int	y;
-
-	if (num.x == 3 && num.y == 0) {
-		x = ((a[0] - 'A' + 1) * 2);
-		y = a[1] - '0' + 1;
-		my_putstr(a);
-		my_putstr(":  hit\n");
-		user2_map[y][x] = 'x';
-	}
-	if (num.x == 2 && num.y == 0) {
-		x = ((a[0] - 'A' + 1) * 2);
-		y = a[1] - '0' + 1;
-		my_putstr(a);
-		my_putstr(":  missed\n");
-		user2_map[y][x] = 'o';
-	}
-	return (NULL);
-}
-
-int	lose(char **map)
-{
-	int	i;
-	int	g;
-
-	for (i = 2; map[i] != NULL; i++) {
-		for (g = 2; map[i][g] != '\0'; g++) {
-			if (map[i][g] == '2' || map[i][g] == '3'
-			    || map[i][g] == '4' || map[i][g] == '5')
-				return (1);
-		}
-	}
-	my_putstr("\nEnemy won\n");
-	return (0);
-}
-//now I have to send a mesage when a player lose to the other
-int	you_won(struct coord_t num)
-{
-	if (num.x == 4 && num.y == 0) {
-		my_putstr("You win\n");
-		return (0);
-	}
-	return (1);
-}
-
-int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
-{
-	struct sigaction	*new_action;
-	char			*a = NULL;
-	struct coord_t		num = {.x = 0, .y = 0};
-	int			num_print = ac;
-	int			ret = 3;
-	//int			i;
+	struct sigaction        *new_action;
+	char                    *a = NULL;
+	struct coord_t          num = {.x = 0, .y = 0};
+	int                     num_print = ac;
+	int                     ret = 3;
 	struct coord_t  value = {.x = 0, .y = 0};
 
 	new_action = signals(ac, pid);
@@ -173,7 +92,6 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 		is_there_ship_atack(num, user1_map, user2_map, a);
 		if (you_won(num) == 0)
 			return (0);
-		//printf("numbefore.x,%dnum.y:%d\n",num.x, num.y);
 		if (ac == 3)
 			print_map_board(user1_map, user2_map);
 		num = print_map(user1_map, user2_map, ac, &num_print);
@@ -191,3 +109,4 @@ int	who_sig_me(char **user1_map, char **user2_map,  int ac, int pid)
 	}
 	return (0);
 }
+

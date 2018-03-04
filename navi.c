@@ -8,7 +8,7 @@
 #include "list.h"
 #include "get_next_line.h"
 
-void user_help(char *av)
+void	user_help(char *av)
 {
 	if (av[0] == '-' && av[1] == 'h' && av[2] == '\0') {
 		my_putstr("USAGE\n\t./navi [first_player_pid] navi_posi");

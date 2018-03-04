@@ -8,7 +8,6 @@
 #include "list.h"
 #include "get_next_line.h"
 
-
 int	hit_return(int ret, int pid)
 {
 	if (ret == 0) {
@@ -75,7 +74,6 @@ int	hit(char *a, int pid)
 char	*atack(char *a)
 {
 	int		i = 0;
-	//int		g;
 	
 	while (i == 0) {
 		my_putstr("atack:  ");
@@ -109,19 +107,13 @@ struct coord_t	print_map(char **user1, char **user2, int ac, int *num)
 	int	i = 0;
 	struct coord_t	value = {.x = 0, .y = 0};
 
-	//printf("num:%d\n", (*num));
-	if ((*num) >= 3) {
+        if ((*num) >= 3) {
 		counter(0, 0, 0);
-		//if ((*num) == 3 && ac == 3)
-		//	print_map_board(user1, user2);
-		my_putstr("\nwaiting for enemy's atack...\n");
+        	my_putstr("\nwaiting for enemy's atack...\n");
 		for (i = pause(); i != -1; i = pause());
-		//for (i = pause(); i != -1; i = pause());
-		for (value = counter(0, 0 , 1); value.z != 3;
+        	for (value = counter(0, 0 , 1); value.z != 3;
 		     value = counter(0, 0, 1));
         }
-	//print_map_board(user1, user2);
-	//value.y--;
-	(*num)++;
+        (*num)++;
 	return (value);
 }
