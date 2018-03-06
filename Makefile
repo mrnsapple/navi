@@ -22,7 +22,7 @@ SRC 	=	navi.c			\
 
 OBJ	=	$(SRC:.c=.o)
 
-NAME 	=	navi
+NAME 	=	navy
 
 RM	=	rm -f
 
