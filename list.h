@@ -81,5 +81,7 @@ int	**int_malloca(int num_ar, int cha);
 void	error(int ac);
 void	my_putchar(char c);
 int	my_putstr(char *str);
-
+char    **create_map_base(void);
+int     check_map();
+	
 #endif
