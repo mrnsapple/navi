@@ -18,8 +18,7 @@
 
 #ifndef LIST_H_
 #define LIST_H_
-
-#define PI              -84
+#define PI	      -84
 
 typedef struct	coord_t
 {
@@ -28,23 +27,23 @@ typedef struct	coord_t
 	int	z;
 }coord_t;
 
-int     lose_function(char **user1_map, int pid_2, int ret);
-int     lose(char **map);
+int	 lose_function(char **user1_map, int pid_2, int ret);
+int	 lose(char **map);
 
-int     hit_return(int ret, int pid);
-int     send_lose(int pid);
-void    print_map_board(char **user1, char **user2);
-char    *atack(char *a);
+int	 hit_return(int ret, int pid);
+int	 send_lose(int pid);
+void	print_map_board(char **user1, char **user2);
+char	*atack(char *a);
 struct coord_t  counter(int x, int y, int z);
 long	decim_bin(int decimal_num);
 int	binaryToDecimal(int n);
 int	hit(char *a, int pid);
-char    **feed_empty(char **av);
-char    **opene(char *av);
-char    **insert_map(char *av, char **ptr);
-char    **open_function(char    *av);
-int     who_sig_me(char **user1_map, char **user2_map, int ac, int pid);
-void    handle_signal(int signal, siginfo_t *siginfo, void *context);
+char	**feed_empty(char **av);
+char	**opene(char *av);
+char	**insert_map(char *av, char **ptr);
+char	**open_function(char	*av);
+int	 who_sig_me(char **user1_map, char **user2_map, int ac, int pid);
+void	handle_signal(int signal, siginfo_t *siginfo, void *context);
 struct coord_t	print_map(char **user1, char **user2, int ac, int *num);
 
 int	my_strcmp(char *pwd, char *line);
@@ -81,5 +80,6 @@ int	**int_malloca(int num_ar, int cha);
 void	error(int ac);
 void	my_putchar(char c);
 int	my_putstr(char *str);
-char    **create_map_base(void);
-int     check_map();
+char	**create_map_base(void);
+int	 check_map();
+#endif

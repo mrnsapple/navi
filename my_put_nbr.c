@@ -31,3 +31,4 @@ int	my_put_nbr(int nb)
 	}
 	return (0);
 }
+

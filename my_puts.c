@@ -26,18 +26,17 @@ int	my_putstr(char *str)
 	}
 	return (0);
 }
+
 int my_strcmp(char *pwd, char *line)
 {
-        int     i;
+	int     i;
 
-        for (i = 0; line[i] != '\0'; i++)
-        {
-                if(pwd[i] != line[i])
-                        return (0);
-        }
-        //if (line[i] == pwd[i])
+	for (i = 0; line[i] != '\0'; i++)
+	{
+		if(pwd[i] != line[i])
+			return (0);
+	}
 	return (1);
-		//return (0);
 }
 
 int	is_num(char *str)

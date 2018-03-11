@@ -20,7 +20,7 @@ long	get_bin_pid(int ac, int pid)
 			}
 			else {
 				kill (pid, SIGUSR2);
-                        }
+			}
 			binary_pid /= 10;
 		}
 	}
