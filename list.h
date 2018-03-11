@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2017
-**
+** EPITECH PROJECT, 2018
+** djek
 ** File description:
-**
+** dekde
 */
 
 #include <time.h>
@@ -83,5 +83,3 @@ void	my_putchar(char c);
 int	my_putstr(char *str);
 char    **create_map_base(void);
 int     check_map();
-	
-#endif

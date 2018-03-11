@@ -38,9 +38,7 @@ char    **opene(char *av)
 
 	num[0] = 0;
 	num[1] = 0;
-	if ((fd = open(av, O_RDONLY)) == -1)
-		exit(84);
-
+	fd = open(av, O_RDONLY);
 	for (i = read(fd, buf, 1);
 	     i != 0; i = read(fd, buf, 1)) {
 		if (buf[0] == '\n')

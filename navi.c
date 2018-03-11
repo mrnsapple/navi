@@ -27,11 +27,9 @@ int	main(int ac, char **av)
 	if (ac == 2)
 		user_help(av[1]);
 	if (ac != 2 && ac != 3)
-		exit(84);
-	
-	if (ac == 2) {
+		return (84);
+	if (ac == 2)
 		user_map = open_function(av[1]);
-	}
 	if (ac == 3) {
 		my_putstr("succesfully connected\n\n");
 		user_map = open_function(av[2]);
