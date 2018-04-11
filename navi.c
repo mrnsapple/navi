@@ -31,8 +31,8 @@ int	main(int ac, char **av)
 	if (ac == 2)
 		user_map = open_function(av[1]);
 	if (ac == 3) {
-		my_putstr("succesfully connected\n\n");
 		user_map = open_function(av[2]);
+		my_putstr("succesfully connected\n\n");
 	}
 	if (user_map == NULL)
 		return (84);

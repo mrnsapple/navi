@@ -29,12 +29,13 @@ int	my_putstr(char *str)
 
 int my_strcmp(char *pwd, char *line)
 {
-	int     i;
+	int     i = 0;
 
-	for (i = 0; line[i] != '\0'; i++)
+	while (line[i] != '\0')
 	{
 		if(pwd[i] != line[i])
 			return (0);
+		i++;
 	}
 	return (1);
 }

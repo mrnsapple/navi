@@ -76,7 +76,7 @@ char	*atack(char *a)
 	int		i = 0;
 	
 	while (i == 0) {
-		my_putstr("atack:  ");
+		my_putstr("attack:  ");
 		counter(0, 0, 0);
 		for (a = get_next_line(0); a == NULL; a = get_next_line(0)); 
 		if (a[0] >= 'A' && a[0] <= 'H' && a[1] >= '1' && a[1] <= '9' &&

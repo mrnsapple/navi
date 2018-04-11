@@ -39,6 +39,8 @@ char    **opene(char *av)
 	num[0] = 0;
 	num[1] = 0;
 	fd = open(av, O_RDONLY);
+	if (fd == -1)
+		return (NULL);
 	for (i = read(fd, buf, 1);
 	     i != 0; i = read(fd, buf, 1)) {
 		if (buf[0] == '\n')
@@ -58,9 +60,11 @@ char    **insert_map(char *av, char **ptr)
 
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
-		return (NULL);
+		exit(84);
 	for (i = read(fd, buf, 1);
 	     i != 0; i = read(fd, buf, 1)) {
+		if (i == -1)
+			exit (84);
 		ptr[num[0]][num[1]] = buf[0];
 		if (buf[0] == '\n') {
 			ptr[num[0]][num[1] + 1] = '\0';
