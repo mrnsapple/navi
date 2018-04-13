@@ -132,6 +132,6 @@ char	**open_function(char *av)
 	final_map = create_map(user1_map);
 	if (final_map == NULL)
 		return (NULL);
-	free(user1_map);
+	free_malloca(8, 8, user1_map);
 	return (final_map);
 }

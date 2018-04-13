@@ -7,6 +7,13 @@
 
 #include "list.h"
 
+void	free_malloca(int num_a, int cha, char **av)
+{
+	for (int fd = 0; fd < num_a + 2; fd++)
+		free(av[fd]);
+	free(av);
+}
+
 char	**malloca(int num_ar, int cha)
 {
 	char	**pwd;
