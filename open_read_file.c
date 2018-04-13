@@ -28,13 +28,13 @@ char	**feed_empty(char **av)
 	return (str);
 }
 
-char    **opene(char *av)
+char	**opene(char *av)
 {
-	int     fd;
-	char    buf[2];
-	char    **ptr;
-	int     i;
-	int     num[2];
+	int	fd;
+	char	buf[2];
+	char	**ptr;
+	int	i;
+	int	num[2];
 
 	num[0] = 0;
 	num[1] = 0;
@@ -51,6 +51,16 @@ char    **opene(char *av)
 	return (ptr);
 }
 
+void	insert_map_two(char **ptr, int *zero, int *one, char buf)
+{
+	if (buf == '\n') {
+		ptr[*zero][*one + 1] = '\0';
+		(*zero)++;
+		*one = -1;
+	}
+	(*one)++;
+}
+
 char    **insert_map(char *av, char **ptr)
 {
  	int     fd;
@@ -60,18 +70,13 @@ char    **insert_map(char *av, char **ptr)
 
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
-		exit(84);
+		return (NULL);
 	for (i = read(fd, buf, 1);
 	     i != 0; i = read(fd, buf, 1)) {
 		if (i == -1)
-			exit (84);
+			return (NULL);
 		ptr[num[0]][num[1]] = buf[0];
-		if (buf[0] == '\n') {
-			ptr[num[0]][num[1] + 1] = '\0';
-			num[0]++;
-			num[1] = -1;
-		}
-		num[1]++;
+		insert_map_two(ptr, &num[0], &num[1], buf[0]);
 	}
 	ptr[num[0]] = NULL;
         return (ptr);
@@ -94,7 +99,7 @@ char	**create_map(char **map)
 	}
 	my_putstr("test");
 	final_map = create_map_base();
-	for (i = 0; map[i] != NULL; i++) {	
+	for (i = 0; map[i] != NULL; i++) {
 		x1 = (map[i][2] - 'A' + 1) * 2;
 		y1  = map[i][3] - '0' + 1;
 		x2 = (map[i][5] - 'A' + 1) * 2;

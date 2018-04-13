@@ -58,11 +58,11 @@ int	hit(char *a, int pid)
 		x = ((a[0] - 'A' + 1) * 2);
 		y = a[1] - '0' + 1;
 	}
-	for (; y != 0; y--) {
+	for (y = y; y != 0; y--) {
 		kill(pid, SIGUSR2);
 		usleep(1);
 	}
-	for (; x != 0; x--) {
+	for (y = y; x != 0; x--) {
 		kill(pid, SIGUSR1);
 		usleep(1);
 	}

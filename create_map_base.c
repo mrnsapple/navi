@@ -6,7 +6,7 @@
 */
 #include "list.h"
 
-char    **create_map_base(void)
+char	**create_map_base(void)
 {
 	char    **map;
 	int     i;
